@@ -25,3 +25,5 @@ yarn-error.log*
 *fireb*
 fireb*
 .fireb*
+
+package-lock.json

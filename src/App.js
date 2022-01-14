@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Wn from './utils/weon.js'
+import firebase from 'firebase';
+import firebaseConfig from "./fconfig.js"
 
 const wn = new Wn()
 
@@ -16,6 +18,18 @@ function App() {
   const assignText = (e) => {
     setFrase(e.target.value)
   }
+
+  function initFirebase(){
+    if (firebaseConfig){
+      const app = firebase.initializeApp(firebaseConfig);
+      const analytics = firebase.analytics();
+      console.log(analytics)
+    }
+  }
+
+  useEffect(() => {
+    initFirebase()
+  },[])
 
   useEffect(() => {
     async function traduccion () {
