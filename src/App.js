@@ -3,7 +3,11 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
+import Wn from './utils/weon.js'
+
+const wn = new Wn()
 
 function App() {
   const [frase, setFrase] = useState('')
@@ -14,14 +18,24 @@ function App() {
   }
 
   useEffect(() => {
-    setTrad(frase)
+    async function traduccion () {
+      let t = await wn.translate(frase)
+      console.log('TRADUCCION: ',t)
+      setTrad(t)
+    }
+
+    if (frase.length > 2){
+      traduccion()
+    } else {
+      setTrad('')
+    }
   }, [frase])
 
   return (
-    <div className="App">
       <Box p={4} className="App-header">
         <h1>Traduce weás.</h1>
-        <p>Primer traductor de español chileno.</p>
+        <p> <sub> Primer traductor de español chileno. </sub>
+        <Chip label="pre-alfa" color="primary" size="small" variant="outlined" /></p>
 
         <Grid container spacing={4}>
           <Grid item xs={12} md={6} >
@@ -41,13 +55,14 @@ function App() {
               label="Traducción"
               multiline fullWidth
               rows={4}
-              editable={false}
+              InputProps={{
+                readOnly: true,
+              }}
               value = {traduccion}
             />
           </Grid>
         </Grid>
       </Box>
-    </div>
   );
 }
 
