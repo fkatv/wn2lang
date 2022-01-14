@@ -94,7 +94,7 @@ export default class Wn {
     } F_split(L, P) {
         let F = []
         let i = 0
-        while (i< this.len(P) && L != "") {
+        while (i< this.len(P) && L !=="") {
           let p = P[i]
           let ip = L.indexOf(p)
           if (ip>-1){
@@ -106,7 +106,7 @@ export default class Wn {
       }
       F.push(L)
 
-      console.log('F=',F)
+      // console.log('F=',F)
       return F
     } rho(L) {
         let R = []
@@ -136,7 +136,7 @@ export default class Wn {
 
     } esFraseNula(f) {
         f.map(x => {
-            if (x != '') {
+            if (x !== '') {
                 return false
             }
         })
@@ -146,7 +146,7 @@ export default class Wn {
         let O = []
         for (let i=0; i < d ; i++){
             let y_translate = await this.deschilenizar(U[i],P[i])
-            console.log(i,U[i],P[i],y_translate)
+            // console.log(i,U[i],P[i],y_translate)
             O.push(y_translate)
         }
         return O
@@ -174,18 +174,18 @@ export default class Wn {
         this.setTrad('')
         for (let i = 0; i<this.len(K); i++) {
             let kappa = K[i]
-            console.log(kappa)
+            // console.log(kappa)
             let trad = this.trad
             let Pk = await this.rho(kappa)
             if (this.len(Pk) === 0) {
                 trad = this.trad + kappa
             } else {
                 let Fk = await this.F_split(kappa, Pk)
-                console.log(Fk)
+                // console.log(Fk)
                 let Uk = await this.getUpsilon(Fk,Pk)
-                //console.log(Uk)
+                //// console.log(Uk)
                 let Ok = await this.getOmega(Uk, Pk, this.len(Pk))
-                console.log('omega > ',Ok)
+                // console.log('omega > ',Ok)
                 let Ck = await this.articulate(Fk,Ok)
                 Ck.replace(/^\w/, (c) => c.toUpperCase()); //capitalize in js
                 trad = this.trad + Ck + "."
@@ -193,7 +193,7 @@ export default class Wn {
             this.setTrad(trad)
         }
         let translated = this.trad
-        console.log('!"#"#$#/',translated)
+        // console.log('!"#"#$#/',translated)
         // to_translate = trad
         // translated = GoogleTranslator(source='auto', target=lang).translate(to_translate)
         return translated
@@ -201,7 +201,7 @@ export default class Wn {
     } translateAndAnalize(_lambda) {
         /*text = this.translate(_lambda, 'en')
         a = this.getAnalysis(text)
-        console.log(text, a)
+        // console.log(text, a)
         return [text, a]
         */
     } getUpsilon(F, P) {
@@ -210,7 +210,7 @@ export default class Wn {
             let pwn = P[index]
             let f = F[index]
             let u = this.Upsilon(f, pwn)
-            // console.log(f,pwn , u)
+            // // console.log(f,pwn , u)
             U.push(u)
         }
         return U
@@ -235,10 +235,10 @@ export default class Wn {
         let min = 2
         if (a < b) if (a_gn < c_gn) min = 0
         else if (b_gn < c_gn) min = 1
-        else if (a = b = c === -1) min = -1
+        else if (a === b === c === -1) min = -1
 
         if (min === -1 ||  this.esFraseNula(f) ) {
-          // console.log('es frase NULA:',f,pwn)
+          // // console.log('es frase NULA:',f,pwn)
           if (pwn === 'weás')
               u = [0, 1, 0, 3, 1] //
           if (pwn === 'weá')
@@ -256,12 +256,12 @@ export default class Wn {
             u = u + v[min]
         }
 
-        console.log('  u = ', u)
+        // console.log('  u = ', u)
         return u
 
     } primerPronombre(f) {
         for (let i=0; i< this.len(f); i++) {
-            if (f[i] != '') {
+            if (f[i] !== '') {
                 let e = f[i]
                 if (e[0] === 'e') {
                     e = 'é' + e.slice(1)
@@ -296,7 +296,7 @@ export default class Wn {
             return [1,0]
         if (this.includeIn(x,  'las unas'.split(' ') && this.includeIn(pwn,  "weonas aweonás".split(' '))))
             return [1,1]
-        if (this.includeIn(x,  'la una'.split(' ') && pwn =="weá".split(' ')))
+        if (this.includeIn(x,  'la una'.split(' ') && pwn === "weá".split(' ')))
             return [2,0]
         if (this.includeIn(x,  'las unas'.split(' ') && pwn === "weás".split(' ')))
             return [2,1]
@@ -306,7 +306,7 @@ export default class Wn {
             return [2,0]
         if (this.includeIn(x,  'los unos'.split(' ') && this.includeIn(pwn,  "weones aweonaos".split(' '))))
             return [0,1]
-        if (this.includeIn(x,  'los unos'.split(' ') && pwn =="wéas"))
+        if (this.includeIn(x,  'los unos'.split(' ') && pwn === "wéas"))
             return [2,1]
         if (x === 'les') {
             if (i === 0)
@@ -325,9 +325,9 @@ export default class Wn {
     } isPronomDemost(x, pwn) {
         if (!x)  return false
 
-        if(x[0]=='e')
+        if(x[0]=== 'e')
             x = 'é' + x.slice(1)
-        if(x.slice(0,4)=='aque')
+        if(x.slice(0,4)=== 'aque')
             x = 'aqué' + x.slice(4)
         if (x !== this.pron_dem)
             return false
@@ -378,7 +378,7 @@ export default class Wn {
 
     } deschilenizar(u,p) {
         u = u.toString()
-        console.log(u)
+        // console.log(u)
         if ( p === "weá") {
             if (u === [1, 0, 0, 0, 0].toString() )
                 return "#10000weá"
@@ -650,8 +650,8 @@ export default class Wn {
                 return "#00131wéa"
         }
         if ( p === "weón") {
-          console.log(u)
-          if (u.toString() == [ 1, 0, 0, 2, 0 ].toString() )
+          // console.log(u)
+          if (u.toString() === [ 1, 0, 0, 2, 0 ].toString() )
               return "tipejo"
             if (u === [1, 0, 0, 0, 0].toString() )
                 return "bobo"
