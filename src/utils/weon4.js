@@ -2,6 +2,7 @@ export default class Wn {
 
     constructor() {
         this.trad = ""
+        this.points = [',',';',"'",":"]
         this._pwn = ['webe', 'weón', 'weon', 'aweo', 'wéa','wéas', 'weá','weás']
         this.conjugaciones = ['yo me ', 'tú te ', 'el se ', 'nosotros nos ', 'ellos se ', 'voh (te) ']
         this.presente_simple = ['o','as / ai' ,'a', 'amos', 'an', 'ai']
@@ -34,6 +35,7 @@ export default class Wn {
         return ret
 
     } lexicParser(L) {
+      L = L.replace('wn', 'weon')
       var _L = L.split(' ')
       for (let i = 0; i < this.len(_L); i++) {
           let x = _L[i]
@@ -56,7 +58,9 @@ export default class Wn {
           }
           _L[i] = x
       }
-      L = _L.join(' ')
+
+      L = _L.join(' ') + " "
+      L = L.replace(',', ' ,')
 
         // L = L.replace('ebia','ebe')
         L = L.toLowerCase()
@@ -88,7 +92,6 @@ export default class Wn {
         if (this.len(L) === 3 && 'wea' === L)
           return "weá"
 
-
         return L
 
     } F_split(L, P) {
@@ -99,6 +102,7 @@ export default class Wn {
           let ip = L.indexOf(p)
           if (ip>-1){
               let Ftemp  = L.slice(0,ip)
+              Ftemp = Ftemp.replace(',', ' ,')
               F.push(Ftemp)
               L = L.slice(ip+this.len(p))
           }
@@ -127,12 +131,17 @@ export default class Wn {
         return R
 
     } borraPuntuacion(x) {
-        // return re.sub('[^a-záóíA-Z0-9]+', '', x)
-        let ret = x
         try{
-          ret = x.replace(/^[a-zA-Záóí]$/g, '');
+          x = x.replace(/^[0-9a-zá-úA-Z]+$/, '');
         }catch(err){}
-        return ret
+
+
+        /*let tx = this.len(x)
+        let comma = ret[tx - 1]
+        if (this.includeIn(comma, this.points) ) {
+          return [ret.slice(0, tx-1), comma]
+        }*/
+        return x
 
     } esFraseNula(f) {
         f.map(x => {
@@ -169,6 +178,7 @@ export default class Wn {
     } setTrad(trad){
         this.trad = trad
     } async translate(_lambda, lang = "es") {
+
         let L = this.lexicParser(_lambda)
         let K = L.split(".")
         this.setTrad('')
@@ -256,7 +266,7 @@ export default class Wn {
             u = u + v[min]
         }
 
-        // console.log('  u = ', u)
+        console.log('  u = ', u, pwn)
         return u
 
     } primerPronombre(f) {
@@ -526,9 +536,9 @@ export default class Wn {
             if (u === [1, 0, 0, 1, 1].toString() )
                 return "malnacidos"
             if (u === [1, 0, 0, 2, 0].toString() )
-                return ",subnormal"
+                return "subnormal"
             if (u === [1, 0, 0, 2, 1].toString() )
-                return ",subnormales"
+                return "subnormales"
             if (u === [1, 0, 0, 3, 0].toString() )
                 return "tontona"
             if (u === [1, 0, 0, 3, 1].toString() )
@@ -650,9 +660,8 @@ export default class Wn {
                 return "#00131wéa"
         }
         if ( p === "weón") {
-          // console.log(u)
-          if (u.toString() === [ 1, 0, 0, 2, 0 ].toString() )
-              return "tipejo"
+            if (u.toString() === [ 1, 0, 0, 2, 0 ].toString() )
+                return "tipejo"
             if (u === [1, 0, 0, 0, 0].toString() )
                 return "bobo"
             if (u === [1, 0, 0, 0, 1].toString() )
@@ -689,7 +698,7 @@ export default class Wn {
             if (u === [1, 0, 0, 2, 1].toString() )
                 return "amiga"
             if (u === [1, 0, 0, 3, 0].toString() )
-                return "niña!"
+                return "niña"
             if (u === [1, 0, 0, 3, 1].toString() )
                 return "lesas"
 
