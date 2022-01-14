@@ -49,7 +49,7 @@ function App() {
       <Box p={4} className="App-header">
         <h1>Traduce weás.</h1>
         <p> <sub> Primer traductor de español chileno. </sub>
-        <Chip label="pre-alfa" color="primary" size="small" variant="outlined" /></p>
+        <Chip label="alfa" color="primary" size="small" variant="outlined" /></p>
 
         <Grid container spacing={4}>
           <Grid item xs={12} md={6} >

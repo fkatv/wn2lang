@@ -11,7 +11,7 @@ currently in testing stage.
 ## El primer traductor de español Chileno 🥳
 ### *Traductor de weon, wn, wea, weás, aweonao, y verbos de webear*
 
-Este proyecto es la impementación del módulo traductor de weones, [pyWeon](https://github.com/fkatv/pyweon) a javascript
+Este proyecto es la impementación de la familia de traductor de weones, [pyWeon](https://github.com/fkatv/pyweon) , en su versión a javascript: [Weon4JS](https://github.com/fkatv/weon4js)
 
 Actualmente en desarrollo y en fase de pruebas.
 
