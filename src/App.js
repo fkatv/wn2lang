@@ -79,6 +79,16 @@ function App() {
             />
           </Grid>
         </Grid>
+
+        <Box mt={6}>
+
+          <footer>Developed with 💖
+            by <a href="https://github.com/fkatv">Fkatv</a>
+            | <a href="https://github.com/fkatv/wn2lang">Wn2Lang Project</a>
+          | <a href="https://github.com/fkatv/weon4js">weon4js Project</a>
+          | <a href="https://github.com/fkatv/pyweon">pyWeon Project</a>
+          </footer>
+        </Box>
       </Box>
   );
 }
