@@ -210,7 +210,8 @@ export default class Wn {
         // console.log('!"#"#$#/',translated)
         // to_translate = trad
         // translated = GoogleTranslator(source='auto', target=lang).translate(to_translate)
-        return translated
+        L = L.replace(' ,',',')
+        return [L, translated]
 
     } translateAndAnalize(_lambda) {
         /*text = this.translate(_lambda, 'en')

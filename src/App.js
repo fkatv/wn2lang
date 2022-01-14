@@ -12,6 +12,7 @@ const wn = new Wn()
 
 function App() {
   const [frase, setFrase] = useState('')
+  const [ortografia, setOrto] = useState('')
   const [traduccion, setTrad] = useState('')
 
   const assignText = (e) => {
@@ -34,12 +35,14 @@ function App() {
     async function traduccion () {
       let t = await wn.translate(frase)
       console.log('TRADUCCION: ',t)
-      setTrad(t)
+      setOrto(t[0])
+      setTrad(t[1])
     }
 
     if (frase.length > 2){
       traduccion()
     } else {
+      setOrto('')
       setTrad('')
     }
   }, [frase])
@@ -61,6 +64,7 @@ function App() {
               variant="filled"
               placeholder="Escribe alguna weá."
             />
+          <p>{ortografia}</p>
           </Grid>
 
           <Grid item item xs={12} md={6} >
