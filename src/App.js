@@ -18,16 +18,20 @@ function App() {
   }
 
   useEffect(() => {
+    async function traduccion () {
+      let t = await wn.translate(frase)
+      console.log('TRADUCCION: ',t)
+      setTrad(t)
+    }
+
     if (frase.length > 2){
-      let trad = wn.translate(frase)
-      setTrad(trad)
+      traduccion()
     } else {
       setTrad('')
     }
   }, [frase])
 
   return (
-    <div className="App">
       <Box p={4} className="App-header">
         <h1>Traduce weás.</h1>
         <p> <sub> Primer traductor de español chileno. </sub>
@@ -51,13 +55,14 @@ function App() {
               label="Traducción"
               multiline fullWidth
               rows={4}
-              editable={false}
+              InputProps={{
+                readOnly: true,
+              }}
               value = {traduccion}
             />
           </Grid>
         </Grid>
       </Box>
-    </div>
   );
 }
 
