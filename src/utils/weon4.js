@@ -115,8 +115,10 @@ export default class Wn {
     } rho(L) {
         let R = []
         let particulas = this._pwn
-        L.split(' ').map((x, i) => {
-            x = this.borraPuntuacion(x)
+        let Lsplit = L.split(' ')
+        console.log(Lsplit)
+        Lsplit.map((x, i) => {
+            console.log(x)
             if (this.len(x)>=3) {
                 if(this.len(x) === 3 && this.includeIn(x,  particulas ) ) {
                     R.push(x)
@@ -131,11 +133,11 @@ export default class Wn {
         return R
 
     } borraPuntuacion(x) {
-        try{
+        /*try{
           x = x.replace(/^[0-9a-zá-úA-Z]+$/, '');
         }catch(err){}
-
-
+        */
+        // por ahora dejaremos esto sin cambios.
         /*let tx = this.len(x)
         let comma = ret[tx - 1]
         if (this.includeIn(comma, this.points) ) {
@@ -200,6 +202,8 @@ export default class Wn {
                 Ck.replace(/^\w/, (c) => c.toUpperCase()); //capitalize in js
                 trad = this.trad + Ck + "."
             }
+            trad = trad.replace(' ,',',')
+            trad = trad.replace(' .','.')
             this.setTrad(trad)
         }
         let translated = this.trad
