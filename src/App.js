@@ -8,9 +8,10 @@ import Wn from './utils/weon4.js'
 import firebase from 'firebase';
 import firebaseConfig from "./fconfig.js"
 
-const wn = new Wn()
+
 
 function App() {
+  const [wn, setWn] = useState(null)
   const [frase, setFrase] = useState('')
   const [ortografia, setOrto] = useState('')
   const [traduccion, setTrad] = useState('')
@@ -20,12 +21,22 @@ function App() {
   }
 
   function initFirebase(){
-    if (firebaseConfig){
-      const app = firebase.initializeApp(firebaseConfig);
-      const analytics = firebase.analytics();
-      console.log(analytics)
+    if (wn === null) {
+      if (firebaseConfig){
+        const app = firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.analytics();
+        console.log(analytics)
+      }
+      setWn(false) // lanza el useEffect de carga de instancia de weon
     }
   }
+
+  useEffect(() => {
+    if (wn === false){
+      const _wn = new Wn()
+      setWn(_wn)
+    }
+  }, [wn])
 
   useEffect(() => {
     initFirebase()
@@ -53,6 +64,11 @@ function App() {
         <p> <sub> Primer traductor de español chileno. </sub>
         <Chip label="alfa" color="primary" size="small" variant="outlined" /></p>
 
+        {!wn && (
+          <p>Loading this weas...</p>
+        )}
+
+        {wn && (
         <Grid container spacing={4}>
           <Grid item xs={12} md={6} >
             <TextField
@@ -79,14 +95,14 @@ function App() {
             />
           </Grid>
         </Grid>
-
+        )}
         <Box mt={6}>
 
           <footer>Developed with 💖
-            by <a href="https://github.com/fkatv">Fkatv</a>
-            | <a href="https://github.com/fkatv/wn2lang">Wn2Lang Project</a>
-          | <a href="https://github.com/fkatv/weon4js">weon4js Project</a>
-          | <a href="https://github.com/fkatv/pyweon">pyWeon Project</a>
+            by <a href="https://github.com/fkatv">Fkatv </a>
+            | <a href="https://github.com/fkatv/wn2lang">Wn2Lang Project </a>
+          | <a href="https://github.com/fkatv/weon4js">weon4js Project </a>
+          | <a href="https://github.com/fkatv/pyweon">pyWeon Project </a>
           </footer>
         </Box>
       </Box>
