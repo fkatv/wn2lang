@@ -8,11 +8,13 @@ import Wn from './utils/weon4.js'
 import firebase from 'firebase';
 import firebaseConfig from "./fconfig.js"
 
-
+const a_style={textDecoration: "none",}
 
 function App() {
   const [wn, setWn] = useState(null)
   const [frase, setFrase] = useState('')
+  const [lenfrase, setLenFrase] = useState("0/500")
+  const [lang, setLang] = useState('es')
   const [ortografia, setOrto] = useState('')
   const [traduccion, setTrad] = useState('')
 
@@ -20,12 +22,15 @@ function App() {
     setFrase(e.target.value)
   }
 
+  const isStringNotNull = (st) => {
+    return st.split(" ").join("") !== ""
+  }
+
   function initFirebase(){
     if (wn === null) {
       if (firebaseConfig){
         const app = firebase.initializeApp(firebaseConfig);
         const analytics = firebase.analytics();
-        console.log(analytics)
       }
       setWn(false) // lanza el useEffect de carga de instancia de weon
     }
@@ -45,13 +50,17 @@ function App() {
   useEffect(() => {
     async function traduccion () {
       let t = await wn.translate(frase)
-      console.log('TRADUCCION: ',t)
       setOrto(t[0])
       setTrad(t[1])
+      setLenFrase(frase.length + "/500")
     }
 
-    if (frase.length > 2){
-      traduccion()
+    let tam = frase.length > 500 ? 500 : frase.length
+
+    if (2 <= tam <= 500){
+      if (wn && isStringNotNull(frase)) {
+        traduccion()
+      }
     } else {
       setOrto('')
       setTrad('')
@@ -79,6 +88,7 @@ function App() {
               rows={4}
               variant="filled"
               placeholder="Escribe alguna weá."
+              helperText={lenfrase}
             />
           <p>{ortografia}</p>
           </Grid>
@@ -99,10 +109,10 @@ function App() {
         <Box mt={6}>
 
           <footer>Developed with 💖
-            by <a href="https://github.com/fkatv">Fkatv </a>
-            | <a href="https://github.com/fkatv/wn2lang">Wn2Lang Project </a>
-          | <a href="https://github.com/fkatv/weon4js">weon4js Project </a>
-          | <a href="https://github.com/fkatv/pyweon">pyWeon Project </a>
+            by <a style={a_style} href="https://github.com/fkatv">Fkatv </a>
+            | <a style={a_style} href="https://github.com/fkatv/wn2lang">Wn2Lang Project </a>
+          | <a style={a_style} href="https://github.com/fkatv/weon4js">weon4js Project </a>
+          | <a style={a_style} href="https://github.com/fkatv/pyweon">pyWeon Project </a>
           </footer>
         </Box>
       </Box>
