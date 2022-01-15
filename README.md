@@ -5,7 +5,7 @@ This project is the web implementation of the [pyWeon](https://github.com/fkatv/
 
 currently in testing stage.
 
-### [Test here / Online version here!](https://interpretaweon.web.app/)
+### [Test here / Online version here!](https://notweon.web.app/)
 
 # Wn2Lang
 ## El primer traductor de español Chileno 🥳
@@ -15,4 +15,4 @@ Este proyecto es la impementación de la familia de traductor de weones, [pyWeon
 
 Actualmente en desarrollo y en fase de pruebas.
 
-### [Pruébalo acá / Versión online de esta weá acá!](https://interpretaweon.web.app/)
+### [Pruébalo acá / Versión online de esta weá acá!](https://notweon.web.app/)
