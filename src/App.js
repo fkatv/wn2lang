@@ -57,8 +57,8 @@ function App() {
 
     let tam = frase.length > 500 ? 500 : frase.length
 
-    if (2 <= tam <= 500){
-      if (wn && isStringNotNull(frase)) {
+    if (wn && isStringNotNull(frase)) {
+      if (2 <= tam <= 500) {
         traduccion()
       }
     } else {
