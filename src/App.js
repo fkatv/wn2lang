@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Suspense, lazy} from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
@@ -8,15 +8,17 @@ import Wn from './utils/weon4.js'
 import firebase from 'firebase';
 import firebaseConfig from "./fconfig.js"
 
-const a_style={textDecoration: "none",}
+const a_style = {textDecoration: "none",}
 
 function App() {
   const [wn, setWn] = useState(null)
   const [frase, setFrase] = useState('')
   const [lenfrase, setLenFrase] = useState("0/500")
-  const [lang, setLang] = useState('es')
   const [ortografia, setOrto] = useState('')
   const [traduccion, setTrad] = useState('')
+  const [lang,setLang] = useState("es");
+
+  const LangSelect = lazy(() => import("./components/LangSelect"))
 
   const assignText = (e) => {
     setFrase(e.target.value)
@@ -48,6 +50,10 @@ function App() {
   },[])
 
   useEffect(() => {
+
+  },[lang])
+
+  useEffect(() => {
     async function traduccion () {
       let t = await wn.translate(frase)
       setOrto(t[0])
@@ -68,11 +74,16 @@ function App() {
   }, [frase])
 
   return (
-      <Box p={4} className="App-header">
+      <Box p={4} className="App-header" >
         <h1>Traduce weás.</h1>
         <p> <sub> Primer traductor de español chileno. </sub>
         <Chip label="alfa" color="primary" size="small" variant="outlined" /></p>
 
+        <Box  py={2}>
+          <Suspense fallback={<div>Loading..</div>}>
+            <LangSelect lang={lang} setLang={setLang}/>
+          </Suspense>
+        </Box>
         {!wn && (
           <p>Loading this weas...</p>
         )}
@@ -87,7 +98,6 @@ function App() {
               value = {frase}
               rows={4}
               variant="filled"
-              placeholder="Escribe alguna weá."
               helperText={lenfrase}
             />
           <p>{ortografia}</p>
