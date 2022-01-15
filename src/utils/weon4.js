@@ -116,9 +116,8 @@ export default class Wn {
         let R = []
         let particulas = this._pwn
         let Lsplit = L.split(' ')
-        console.log(Lsplit)
         Lsplit.map((x, i) => {
-            console.log(x)
+          // console.log(x)
             if (this.len(x)>=3) {
                 if(this.len(x) === 3 && this.includeIn(x,  particulas ) ) {
                     R.push(x)
@@ -271,7 +270,7 @@ export default class Wn {
             u = u + v[min]
         }
 
-        console.log('  u = ', u, pwn)
+      // console.log('  u = ', u, pwn)
         return u
 
     } primerPronombre(f) {
