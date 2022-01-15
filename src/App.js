@@ -7,8 +7,17 @@ import TextField from '@mui/material/TextField';
 import Wn from './utils/weon4.js'
 import firebase from 'firebase';
 import firebaseConfig from "./fconfig.js"
+import translate from 'google-translate-open-api';
 
 const a_style = {textDecoration: "none",}
+const langs = ['es','en','fr','zh-CN','pt']
+const labels = [
+  ["Frase chilena","Traducción"],
+  ["Enter a Chilean phrase","Translate"],
+  ["Écrire une phrase chilienne","Traduction"],
+  ["智利的短语","翻译"],
+  ["Entrar na frase chilena","Tradução"],
+]
 
 function App() {
   const [wn, setWn] = useState(null)
@@ -16,9 +25,25 @@ function App() {
   const [lenfrase, setLenFrase] = useState("0/500")
   const [ortografia, setOrto] = useState('')
   const [traduccion, setTrad] = useState('')
-  const [lang,setLang] = useState("es");
+  const [lang,setLang] = useState(langs[0]);
+  const [labeled, setLabel] = useState(labels[0])
 
   const LangSelect = lazy(() => import("./components/LangSelect"))
+
+  const translateTo = async (totranslate) => {
+    try {
+      const result = await translate(totranslate, {
+      tld: "com",
+      from:"es",
+      to: lang,
+      browers: true
+      });
+      const data = result.data[0];
+      return data
+    } catch(err) {
+      return "[es] "+totranslate
+    }
+  }
 
   const assignText = (e) => {
     setFrase(e.target.value)
@@ -50,12 +75,17 @@ function App() {
   },[])
 
   useEffect(() => {
-
+    const index = langs.indexOf(lang)
+    setLabel(labels[index])
   },[lang])
 
   useEffect(() => {
     async function traduccion () {
       let t = await wn.translate(frase)
+      if (lang !== "es"){
+        let trad  = await translateTo(t[0])
+        t[0] = trad
+      }
       setOrto(t[0])
       setTrad(t[1])
       setLenFrase(frase.length + "/500")
@@ -92,7 +122,7 @@ function App() {
         <Grid container spacing={4}>
           <Grid item xs={12} md={6} >
             <TextField
-              label="Frase chilena"
+              label={labeled[0]}
               fullWidth multiline
               onChange = {assignText}
               value = {frase}
@@ -105,7 +135,7 @@ function App() {
 
           <Grid item item xs={12} md={6} >
             <TextField
-              label="Traducción"
+              label={labeled[1]}
               multiline fullWidth
               rows={4}
               InputProps={{

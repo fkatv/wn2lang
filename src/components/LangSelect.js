@@ -26,6 +26,8 @@ export default function BasicSelect(props) {
           <MenuItem value={'es'}>Español</MenuItem>
           <MenuItem value={'en'}>English</MenuItem>
           <MenuItem value={'fr'}>Francoise</MenuItem>
+          <MenuItem value={'zh-CN'}>中文</MenuItem>
+          <MenuItem value={'pt'}>Portugues</MenuItem>
         </Select>
       </FormControl>
     </Box>
